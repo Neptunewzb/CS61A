@@ -262,7 +262,19 @@ def max_scoring_num_rolls(dice=six_sided, samples_count=1000):
     1
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    max_avg = 0
+    choose_num = 0
+    averaged_dice =  make_averaged(roll_dice, samples_count)
+
+    for i in range(1, 11):
+        tmp = averaged_dice(i, dice)
+        if max_avg < tmp: 
+            choose_num = i
+            max_avg = tmp
+        print("DEBUG: current_avg = ", tmp),
+        print("DEBUG: max_avg = ", max_avg)
+        print("DEBUG: choose_num = ", choose_num)
+    return choose_num
     # END PROBLEM 9
 
 
