@@ -9,8 +9,7 @@ GOAL = 100  # The goal of Hog is to score 100 points.
 # Phase 1: Simulator #
 ######################
 
-
-def roll_dice(num_rolls, dice=six_sided):
+def roll_dice(num_rolls, dice = six_sided):
     """Simulate rolling the DICE exactly NUM_ROLLS > 0 times. Return the sum of
     the outcomes unless any of the outcomes is 1. In that case, return 1.
 
@@ -189,7 +188,9 @@ def always_roll(n):
     """
     assert n >= 0 and n <= 10
     # BEGIN PROBLEM 6
-    "*** YOUR CODE HERE ***"
+    def strategy(player_score, opponent_score):
+        return n
+    return strategy 
     # END PROBLEM 6
 
 
@@ -220,7 +221,12 @@ def is_always_roll(strategy, goal=GOAL):
     False
     """
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    num = strategy(0, 0)
+    for i in range(goal):
+        for j in range(goal):
+            if strategy(i, j) != num:
+                return False
+    return True
     # END PROBLEM 7
 
 
@@ -236,7 +242,13 @@ def make_averaged(original_function, samples_count=1000):
     3.0
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    def averaged_dice(*args):
+        result = 0
+        for i in range(samples_count):
+            result += original_function(*args)
+        result /= samples_count
+        return result
+    return averaged_dice
     # END PROBLEM 8
 
 
