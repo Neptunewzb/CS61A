@@ -1,5 +1,0 @@
-lec4:
-Job control
-Terminal multiplexer
-dotfiles
-remote machine
