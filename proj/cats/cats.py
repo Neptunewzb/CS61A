@@ -191,7 +191,19 @@ def feline_fixes(typed, source, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    '14:00'
+    len_diff = abs(len(typed) - len(source))
+    diff = 0
+    def get_diff(typed, source, diff, limit): 
+        if typed == "" or source == "":
+            return len_diff + diff
+        elif diff > limit:
+            return diff
+        else:
+            if typed[0] != source[0]:
+                diff += 1
+            return get_diff(typed[1:], source[1:], diff, limit)
+    return get_diff(typed, source, 0, limit)
     # END PROBLEM 6
 
 
@@ -215,23 +227,27 @@ def minimum_mewtations(typed, source, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
-    if ___________: # Base cases should go here, you may add more base cases as needed.
-        # BEGIN
-        "*** YOUR CODE HERE ***"
+#    assert False, 'Remove this line'
+    def get_diff(typed, source, diff, limit):
+        if diff > limit:
+            return diff
+        if not typed or not source: # Base cases should go here, you may add more base cases as needed.
+            # BEGIN
+            return diff + abs(len(typed) - len(source))
+            # END
+        # Recursive cases should go below here
+        if typed[0] == source[0]: # Feel free to remove or add additional cases
+            # BEGIN
+            return get_diff(typed[1:], source[1:], diff, limit)
+            # END
+        else:
+            add = get_diff(typed, source[1:], diff+1, limit) # Fill in these lines
+            remove = get_diff(typed[1:], source, diff+1, limit) 
+            substitute = get_diff(typed[1:], source[1:], diff+1, limit)
+            # BEGIN
+            return min(add, remove, substitute)
         # END
-    # Recursive cases should go below here
-    if ___________: # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
-    else:
-        add = ... # Fill in these lines
-        remove = ...
-        substitute = ...
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    return get_diff(typed, source, 0, limit)
 
 
 def final_diff(typed, source, limit):
