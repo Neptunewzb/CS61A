@@ -57,7 +57,7 @@ def about(subject):
     '9:02'
     def select(paragraph):
         words = split(lower(remove_punctuation(paragraph)))
-        print("DEBUG: subject=",paragraph)
+#        print("DEBUG: subject=",paragraph)
         for x in subject:
             if x in words:
                 return True
@@ -92,7 +92,6 @@ def accuracy(typed, source):
     typed_words = split(typed)
     source_words = split(source)
     # BEGIN PROBLEM 3
-    '10:02'
     total = len(typed_words)
     cnt = 0
     if len(source_words) == 0:
@@ -105,7 +104,7 @@ def accuracy(typed, source):
     for s in source_words:
         if typed_words == []:
             break
-        print("DEBUG:t,s= ",typed_words[0], s)
+#        print("DEBUG:t,s= ",typed_words[0], s)
         if typed_words[0] == s:
             cnt += 1
         typed_words = typed_words[1:]
@@ -127,7 +126,8 @@ def wpm(typed, elapsed):
     """
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    '11:38'
+    return len(typed) / 5 * 60 / elapsed
     # END PROBLEM 4
 
 
@@ -156,7 +156,15 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     'testing'
     """
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    res_word = typed_word
+    min_diff = limit + 0.01 
+    if typed_word in word_list:
+        return typed_word
+    for word in word_list:
+        if diff_function(typed_word, word, limit) < min_diff:
+            min_diff = diff_function(typed_word, word, limit)
+            res_word = word
+    return res_word
     # END PROBLEM 5
 
 
