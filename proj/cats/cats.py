@@ -287,7 +287,17 @@ def report_progress(typed, source, user_id, upload):
     0.2
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    '20:55'
+    total_num = len(source)
+    correct_num = 0
+    for i,j in zip(typed, source):
+        if i == j:
+            correct_num += 1
+        else:
+            break
+    res = correct_num / total_num
+    upload({'id':user_id, 'progress': res});
+    return res
     # END PROBLEM 8
 
 
@@ -309,7 +319,13 @@ def time_per_word(words, timestamps_per_player):
     [[6, 3, 6, 2], [10, 6, 1, 2]]
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    times = [] 
+    for player in timestamps_per_player:
+        t = []
+        for i in range(len(player)-1):
+            t.append(player[i+1] - player[i])
+        times.append(t)
+    return match(words, times)
     # END PROBLEM 9
 
 
