@@ -30,12 +30,10 @@ def pick(paragraphs, select, k):
     ''
     """
     # BEGIN PROBLEM 1
-    "14:50"
-    "16:10"
-    for word in paragraphs:
-        if select(word):
+    for p in paragraphs:
+        if select(p):
             if k == 0:
-                return word
+                return p
             k -= 1
     return ''
     # END PROBLEM 1
@@ -56,7 +54,15 @@ def about(subject):
     """
     assert all([lower(x) == x for x in subject]), 'subjects should be lowercase.'
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    '9:02'
+    def select(paragraph):
+        words = split(lower(remove_punctuation(paragraph)))
+        print("DEBUG: subject=",paragraph)
+        for x in subject:
+            if x in words:
+                return True
+        return False
+    return select
     # END PROBLEM 2
 
 
@@ -86,7 +92,24 @@ def accuracy(typed, source):
     typed_words = split(typed)
     source_words = split(source)
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    '10:02'
+    total = len(typed_words)
+    cnt = 0
+    if len(source_words) == 0:
+        if len(typed_words) == 0:
+            return 100.0
+        else:
+            return 0.0
+    if total == 0:
+        return 0.0
+    for s in source_words:
+        if typed_words == []:
+            break
+        print("DEBUG:t,s= ",typed_words[0], s)
+        if typed_words[0] == s:
+            cnt += 1
+        typed_words = typed_words[1:]
+    return cnt / total * 100.0
     # END PROBLEM 3
 
 
