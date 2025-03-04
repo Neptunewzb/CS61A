@@ -13,7 +13,9 @@ def swipe(n):
     if n < 10:
         print(n)
     else:
-        "*** YOUR CODE HERE ***"
+        print(n % 10)
+        swipe(n // 10)
+        print(n % 10)
 
 def skip_factorial(n):
     """Return the product of positive integers n * (n - 2) * (n - 4) * ...
@@ -23,8 +25,8 @@ def skip_factorial(n):
     >>> skip_factorial(8) # 8 * 6 * 4 * 2
     384
     """
-    if ___:
-        return ___
+    if n-2<=0:
+        return n
     else:
         return n * skip_factorial(n - 2)
 
@@ -37,7 +39,12 @@ def is_prime(n):
     >>> is_prime(521)
     True
     """
-    "*** YOUR CODE HERE ***"
+    k = 2
+    while k < n:
+        if n % k == 0:
+            return False
+        k += 1
+    return True
 
 def hailstone(n):
     """Print out the hailstone sequence starting at n, 
@@ -64,10 +71,12 @@ def hailstone(n):
         return odd(n)
 
 def even(n):
-    return ____
+    return 1 + hailstone(n // 2)
 
 def odd(n):
-    "*** YOUR CODE HERE ***"
+    if n == 1:
+        return 1
+    return 1 + hailstone(3*n + 1)
 
 def sevens(n, k):
     """Return the (clockwise) position of who says n among k players.
@@ -88,7 +97,13 @@ def sevens(n, k):
     def f(i, who, direction):
         if i == n:
             return who
-        "*** YOUR CODE HERE ***"
+        #print("DEBUG: ", i, ":  ", has_seven(i) or i//7==0)
+        if has_seven(i) or i%7==0:
+            direction = 1 - direction
+        if direction == 0:
+            return f(i+1, counter_clockwise_next(who, k), direction)
+        else:
+            return f(i+1, clockwise_next(who, k), direction)
     return f(1, 1, 1)
 
 def has_seven(n):
@@ -98,3 +113,15 @@ def has_seven(n):
         return True
     else:
         return has_seven(n // 10)
+
+def clockwise_next(i, k):
+    if i < k:
+        return i+1
+    else:
+        return 1
+
+def counter_clockwise_next(i, k):
+    if i > 1:
+        return i - 1
+    else :
+        return k
