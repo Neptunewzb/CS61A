@@ -240,6 +240,7 @@ class FireAnt(Ant):
     food_cost = 5
     # OVERRIDE CLASS ATTRIBUTES HERE
     '16:28'
+    '11:20'
     health = 3
     # BEGIN Problem 5
     implemented = True   # Change to True to view in the GUI
@@ -257,7 +258,18 @@ class FireAnt(Ant):
         the additional damage if the fire ant dies.
         """
         # BEGIN Problem 5
-        "*** YOUR CODE HERE ***"
+        def reflective_damage(amount):
+            remaining_bees = []
+            for bee in self.place.bees:
+                if bee.health > amount:
+                    remaining_bees.append(bee)
+            for bee in self.place.bees.copy():
+                Insect.reduce_health(bee, amount)
+            self.place.bees = remaining_bees
+        reflective_damage(amount)
+        if self.health <= amount:
+            reflective_damage(self.damage)
+        Ant.reduce_health(self, amount)
         # END Problem 5
 
 # BEGIN Problem 6
