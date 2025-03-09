@@ -104,8 +104,9 @@ class Ant(Insect):
     is_container = False
     # ADD CLASS ATTRIBUTES HERE
 
-    def __init__(self, health=1):
+    def __init__(self, health=1, is_doubled=False):
         super().__init__(health)
+        self.is_doubled = False
 
     def can_contain(self, other):
         return False
@@ -144,7 +145,9 @@ class Ant(Insect):
     def double(self):
         """Double this ants's damage, if it has not already been doubled."""
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        if not self.is_doubled:
+            self.damage *= 2
+            self.is_doubled = True
         # END Problem 12
 
 
@@ -420,14 +423,14 @@ class ScubaThrower(ThrowerAnt):
 # END Problem 11
 
 
-class QueenAnt(ThrowerAnt):
+class QueenAnt(ScubaThrower):
     """QueenAnt boosts the damage of all ants behind her."""
 
     name = 'Queen'
     food_cost = 7
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 12
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem 12
 
     def action(self, gamestate):
@@ -435,7 +438,15 @@ class QueenAnt(ThrowerAnt):
         in her tunnel.
         """
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        self.throw_at(self.nearest_bee())
+        target = self.place
+        while target.exit != None:
+            target = target.exit
+            if target.ant != None:
+                print("DEBUG: target=",target)
+                Ant.double(target.ant)
+                if target.ant.is_container == True and target.ant.ant_contained != None:
+                    Ant.double(target.ant.ant_contained)
         # END Problem 12
 
     def reduce_health(self, amount):
@@ -443,7 +454,10 @@ class QueenAnt(ThrowerAnt):
         remaining, signal the end of the game.
         """
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        Insect.reduce_health(self, amount)
+        print("DEBUG: self=",self)
+        if self.place == None:
+            ants_lose()
         # END Problem 12
 
 
