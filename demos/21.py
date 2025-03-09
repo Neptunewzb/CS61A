@@ -119,3 +119,25 @@ def double_link(s, v):
             s = s.rest.rest
         else:
             s = s.rest
+
+def add(s, v):
+    """Add v to s, returning modified s.
+
+    >>> s = Link(1, Link(3, Link(5)))
+    >>> add(s, 0)
+    Link(0, Link(1, Link(3, Link(5))))
+    >>> add(s, 4)
+    Link(0, Link(1, Link(3, Link(4, Link(5)))))
+    >>> add(s, 6)
+    Link(0, Link(1, Link(3, Link(4, Link(5, Link(6))))))
+    """
+    assert s is not Link.empty
+    #print("DEBUG: s.first, s.rest=",s.first, s.rest)
+    if s.first < v:
+        if s.rest is Link.empty:
+            s.rest = Link(v)
+        add(s.rest, v)
+    elif s.first > v:
+        s.first, s.rest = v, Link(s.first, s.rest)
+    return s
+
