@@ -100,4 +100,3 @@ class WinkingBear(Bear):
 
     def next_eye(self):
         "*** YOUR CODE HERE ***"
-
