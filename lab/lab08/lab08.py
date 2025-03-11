@@ -11,8 +11,16 @@ def cumulative_mul(t):
     >>> otherTree
     Tree(5040, [Tree(60, [Tree(3), Tree(4), Tree(5)]), Tree(42, [Tree(7)])])
     """
-    "*** YOUR CODE HERE ***"
-
+    def get_mul(t):
+        ans = t.label
+        if not t.is_leaf():
+            for b in t.branches:
+                ans *= get_mul(b) 
+        return ans
+    t.label = get_mul(t)
+    if not t.is_leaf():
+        for b in t.branches:
+            cumulative_mul(b)
 
 def prune_small(t, n):
     """Prune the tree mutatively, keeping only the n branches
@@ -31,11 +39,11 @@ def prune_small(t, n):
     >>> t3
     Tree(6, [Tree(1), Tree(3, [Tree(1), Tree(2)])])
     """
-    while ____:
-        largest = max(____, key=____)
+    while len(t.branches) > n:
+        largest = max(t.branches, key=lambda b: b.label)
         t.branches.remove(largest)
     for b in t.branches:
-        ____
+        prune_small(b, n)
 
 
 def delete(t, x):
@@ -57,14 +65,16 @@ def delete(t, x):
     >>> t
     Tree(1, [Tree(4), Tree(5), Tree(3, [Tree(6)]), Tree(6), Tree(7), Tree(8), Tree(4)])
     """
+
     new_branches = []
-    for _________ in ________________:
-        _______________________
+    for b in t.branches:
+        if not b.is_leaf():
+            delete(b, x)
         if b.label == x:
-            __________________________________
+            new_branches.extend(b.branches)        
         else:
-            __________________________________
-    t.branches = ___________________
+            new_branches.append(b)    
+    t.branches = new_branches
 
 
 def max_path_sum(t):
