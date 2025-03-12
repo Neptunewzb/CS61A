@@ -6,7 +6,8 @@
                 #t
             (if (< total (* k k))
                 #f
-            'YOUR-CODE-HERE
+            (or (f (- total (* k k)) (- n 1) (+ k 1))
+                (f total n (+ k 1)))
             )))
         (f total n 1))
 
@@ -19,14 +20,14 @@
 
 (define with-list
         (list
-            'YOUR-CODE-HERE
+            (list 'a 'b) 'c 'd (list 'e)
         )
     )
     ; (draw with-list)  ; Uncomment this line to draw with-list
 
 (define with-quote
         '(
-            'YOUR-CODE-HERE
+            (a b) c d (e)
         )
 
     )
@@ -34,10 +35,18 @@
 
 (define with-cons
         (cons
-            'YOUR-CODE-HERE
+            (cons 'a (cons 'b '())) (cons 'c (cons 'd (cons 'e '())))
         )
     )
     ; (draw with-cons)  ; Uncomment this line to draw with-cons
+
+(define (cadr s)
+    (car (cdr s))
+)
+
+(define (cddr s)
+    (cdr (cdr s))
+)
 
 ;;; Return a list of pairs containing the elements of s.
     ;;;
@@ -47,7 +56,8 @@
     ;;; ((3 4) (5 6) (7 8 9))
     (define (pair-up s)
         (if (<= (length s) 3)
-            'YOUR-CODE-HERE
+            (list s)
+            (cons (list (car s) (cadr s)) (pair-up (cddr s)))
         ))
 
     (expect (pair-up '(3 4 5 6 7 8)) ((3 4) (5 6) (7 8)) )
