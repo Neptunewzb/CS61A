@@ -9,7 +9,7 @@ This repository contains my work for UC Berkeley's CS61A course: Structure and I
 * **Term**: Fall 2024
 * **Website**: [https://cs61a.org/](https://cs61a.org/)
 
-## Repository Structure
+## Repository Structure   
 ```
 .
 ├── homework/          # Weekly homework assignments
